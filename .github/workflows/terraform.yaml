@@ -2,7 +2,7 @@
  name: 'Terraform GitHub Actions'
  defaults:
    run:
-     working-directory: "Terraform"
+     working-directory: "./"
  on:
    - pull_request
    - push
