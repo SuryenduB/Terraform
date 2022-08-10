@@ -1,22 +1,21 @@
-name: 'Terraform Github Actions'
-default:
-  run:
-    working-directory:"Terraform"
-  on:
-    - push
-  jobs:
-    terraform:
-      name: 'Terraform'
-      runs-on: ubuntu-latest
-    
-    steps:
-      - uses: actions/checkout@master
-      - name: 'Terraform Init'
-        id: init
-        run: terraform init
-        env:
-            GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-    
-    
-  
+ name: 'Terraform GitHub Actions'
+ defaults:
+   run:
+     working-directory: "lecture7"
+ on:
+   - pull_request
+   - push
+ jobs:
+   terraform:
+     name: 'Terraform'
+     runs-on: ubuntu-latest
+
+
+     steps:
+       - uses: actions/checkout@master
+       - name: 'Terraform Init'
+         id: init
+         run: terraform init
+         env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }
