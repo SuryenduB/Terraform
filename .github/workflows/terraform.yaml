@@ -19,3 +19,6 @@
          run: terraform init
          env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       - name: Terraform Validate
+         id: validate
+         run: terraform validate
