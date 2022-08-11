@@ -11,6 +11,12 @@
      name: 'Terraform'
      runs-on: ubuntu-latest
 
+     env:
+      TF_VAR_client_id: ${{ secrets.GITHUB_TOKEN }}
+      TF_VAR_client_secret: ${{ secrets.GITHUB_TOKEN }}
+      TF_VAR_subscription_id: ${{ secrets.GITHUB_TOKEN }}
+      TF_VAR_tenant_id: ${{ secrets.GITHUB_TOKEN }}
+
 
      steps:
        - uses: actions/checkout@master
@@ -22,3 +28,6 @@
        - name: Terraform Validate
          id: validate
          run: terraform validate
+       - name: Terraform Apply
+         id: validate
+         run: terraform Apply
