@@ -29,5 +29,5 @@
          id: validate
          run: terraform validate
        - name: Terraform Apply
-         id: validate
+         id: apply
          run: terraform Apply
