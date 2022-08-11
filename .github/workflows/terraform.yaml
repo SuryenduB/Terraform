@@ -27,6 +27,11 @@
           container_name: az500sury
           storage_account_name: az500sury
        - uses: actions/checkout@master
+       - name: 'Terraform Init'
+         id: init
+         run: terraform init
+         env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
        - name: Terraform Validate
          id: validate
          run: terraform validate
