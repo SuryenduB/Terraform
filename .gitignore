@@ -3,3 +3,4 @@
 /file.txt
 /terraform.tfstate
 /terraform.tfstate.backup
+RoleAssignment/.terraform.lock.hcl
