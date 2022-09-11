@@ -4,3 +4,9 @@
 /terraform.tfstate
 /terraform.tfstate.backup
 RoleAssignment/.terraform.lock.hcl
+AWS/.terraform/providers/registry.terraform.io/hashicorp/aws/4.30.0/windows_amd64/terraform-provider-aws_v4.30.0_x5.exe
+RoleAssignment/.terraform/modules/modules.json
+RoleAssignment/.terraform/providers/registry.terraform.io/hashicorp/azurerm/3.21.1/windows_amd64/terraform-provider-azurerm_v3.21.1_x5.exe
+.gitignore
+RoleAssignment/.terraform/providers/registry.terraform.io/hashicorp/azuread/2.28.1/windows_amd64/terraform-provider-azuread_v2.28.1_x5.exe
+AWS/.terraform.lock.hcl
