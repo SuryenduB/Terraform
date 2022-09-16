@@ -5,7 +5,7 @@ resource "aws_eip_association" "eip_assoc" {
 
 resource "aws_security_group" "allow_tls" {
   name        = "allow_tcp"
-  description = "Allow Tcpinbound traffic"
+  description = "Allow Tcp inbound traffic"
   
 
   ingress {
@@ -15,6 +15,20 @@ resource "aws_security_group" "allow_tls" {
     protocol         = "tcp"
     cidr_blocks      = ["${aws_eip.lb.public_ip}/32"]
     
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = [var.vpn_ip]
+  }
+
+  ingress {
+    from_port   = 53
+    to_port     = 53
+    protocol    = "tcp"
+    cidr_blocks = [var.vpn_ip]
   }
 
   
