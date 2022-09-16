@@ -1,25 +1,14 @@
 provider "aws" {
   region     = "us-west-2"
-  access_key = "AKIA3WFERZ2IMXK6LBT6"
-  secret_key = "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"
+  access_key = "AKIA3WFERZ2IFOTWTMMD"
+  secret_key = var.secret_key
+
 }
-/*
-data "aws_ami" "ubuntu" {
-  most_recent = true
 
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
 
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"] # Canonical
+variable "secret_key" {
+  
 }
-*/
 
 resource "aws_instance" "web" {
   ami           = "ami-0c2ab3b8efb09f272"
@@ -29,3 +18,4 @@ resource "aws_instance" "web" {
     Name = "HelloWorld"
   }
 }
+
