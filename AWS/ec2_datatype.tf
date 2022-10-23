@@ -1,4 +1,5 @@
 resource "aws_iam_user" "lb" {
-  name = var.usernumber
+  name = "${var.elb_names[count.index]}"
   path = "/system/"
+  count = 3
 }

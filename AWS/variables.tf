@@ -23,4 +23,10 @@ variable "timeout" {
   type = number
 }
 
+
+variable "elb_names" {
+  type = list
+  default = ["dev-loadbalancer", "stage-loadbalanacer","prod-loadbalancer"]
+}
+
 #terraform plan -var-file="custom.tfvars"
