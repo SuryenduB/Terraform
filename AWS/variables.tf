@@ -5,4 +5,22 @@ variable "instance_type" {
     default = "t2.micro"
   
 }
+
+variable "usernumber" {
+  type = number
+  
+}
+
+variable "elb_name" {
+  type = string
+}
+
+variable "az" {
+  type = list
+}
+
+variable "timeout" {
+  type = number
+}
+
 #terraform plan -var-file="custom.tfvars"
