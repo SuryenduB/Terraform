@@ -8,6 +8,7 @@ variable "instance_type" {
 
 variable "usernumber" {
   type = number
+  default = 12345
   
 }
 
@@ -29,4 +30,5 @@ variable "elb_names" {
   default = ["dev-loadbalancer", "stage-loadbalanacer","prod-loadbalancer"]
 }
 
+variable "istest" {}
 #terraform plan -var-file="custom.tfvars"
