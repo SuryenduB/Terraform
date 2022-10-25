@@ -14,3 +14,4 @@ AWS/terraform.tfstate
 AWS/terraform.tfvars
 AWS/terraform.tfstate.backup
 Policy/assignment.tfplan
+Policy/.terraform.tfstate.lock.info

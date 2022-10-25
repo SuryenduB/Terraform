@@ -17,3 +17,4 @@ variable "client_secret" {
 variable "cust_scope" {
     default = "/subscriptions/e379f32c-a85d-447f-8050-e9f496f305a0"
 }
+
