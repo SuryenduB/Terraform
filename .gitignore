@@ -13,3 +13,4 @@ AWS/.terraform.lock.hcl
 AWS/terraform.tfstate
 AWS/terraform.tfvars
 AWS/terraform.tfstate.backup
+Policy/assignment.tfplan
