@@ -2,6 +2,8 @@ data "azurerm_management_group" "TenantRootGroup" {
   display_name = "Root"
 }
 
-output "display_name" {
-  value = data.azurerm_management_group.TenantRootGroup.display_name
+
+
+data "azurerm_policy_definition" "StorageVNET" {
+  display_name = "Storage accounts should restrict network access using virtual network rules"
 }

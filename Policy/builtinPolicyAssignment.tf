@@ -9,6 +9,7 @@ provider "azurerm" {
 
 
 
+
 resource "azurerm_subscription_policy_assignment" "auditvms" {
   name                 = "audit-vm-manageddisks"
   subscription_id      = var.cust_scope
@@ -24,7 +25,7 @@ resource "azurerm_management_group_policy_assignment" "example" {
   management_group_id  = data.azurerm_management_group.TenantRootGroup.id
   parameters           = <<PARAMS
     {
-      "Tag Name": {
+      "tagName": {
         "value": "Owner"
       }
     }
@@ -34,6 +35,23 @@ PARAMS
 
 }
 
+resource "azurerm_management_group_policy_assignment" "SVnet" {
+  name                 = "Vnet Storage Account"
+  policy_definition_id = data.azurerm_policy_definition.StorageVNET.id
+  
+  management_group_id  = data.azurerm_management_group.TenantRootGroup.id
+  parameters           = <<PARAMS
+    {
+      "effect": {
+        "value": "Deny"
+      }
+    }
+    
+PARAMS
+  
+
+
+}
 
 
 
