@@ -1,0 +1,3 @@
+policy_name
+Storage accounts should prevent shared key access
+Storage accounts should prevent cross tenant object replication
