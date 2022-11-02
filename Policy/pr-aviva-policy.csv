@@ -1,0 +1,28 @@
+policy_name
+Deploy - Configure diagnostic settings for SQL Databases to Log Analytics workspace
+Deploy - Configure diagnostic settings for Azure Key Vault to Log Analytics workspace
+Configure Azure Activity logs to stream to specified Log Analytics workspace
+Configure Microsoft Defender for Azure Cosmos DB to be enabled
+Configure Azure Defender for Storage to be enabled
+Configure Azure Defender for SQL servers on machines to be enabled
+Configure Azure Defender for servers to be enabled
+Configure Azure Defender for Resource Manager to be enabled
+Configure Azure Defender for open-source relational databases to be enabled
+Configure Azure Defender for Key Vaults to be enabled
+Configure Azure Defender for DNS to be enabled
+Configure Azure Defender for Azure SQL database to be enabled
+Configure Azure Defender for App Service to be enabled
+Storage accounts should use customer-managed key for encryption
+Configure Azure Defender to be enabled on SQL servers
+Endpoint protection solution should be installed on virtual machine scale sets
+Endpoint protection should be installed on your machines
+Endpoint protection health issues should be resolved on your machines
+Configure Microsoft Defender for Containers to be enabled
+Keys should have the specified maximum validity period
+HPC Cache accounts should use customer-managed key for encryption
+Queue Storage should use customer-managed key for encryption
+Table Storage should use customer-managed key for encryption
+Configure storage accounts to disable public network access
+Storage accounts should use private link
+Flow logs should be configured for every network security group
+Azure Key Vault should disable public network access

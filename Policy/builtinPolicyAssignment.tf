@@ -35,27 +35,30 @@ PARAMS
 
 }
 
-resource "azurerm_management_group_policy_assignment" "SVnet" {
-  name                 = "Vnet Storage Account"
-  policy_definition_id = data.azurerm_policy_definition.StorageVNET.id
+# resource "azurerm_management_group_policy_assignment" "SVnet" {
+#   display_name                 = "Configure diagnostic settings for storage accounts to Log Analytics workspace"
+#   name         = "${substr(data.azurerm_policy_definition.StorageVNET.display_name,-30,23)}"
 
-  management_group_id = data.azurerm_management_group.TenantRootGroup.id
-  parameters          = <<PARAMS
-    {
-      "effect": {
-        "value": "Deny"
-      }
-    }
-    
-PARAMS
+#   policy_definition_id = data.azurerm_policy_definition.StorageVNET.id
+
+#   management_group_id = data.azurerm_management_group.TenantRootGroup.id
+#   parameters          = <<PARAMS
+#     {
+#       "effect": {
+#         "value": "Deny"
+#       }
+#     }
+
+# PARAMS
 
 
 
-}
+# }
 
 resource "azurerm_management_group_policy_assignment" "BuiltInPolicyAssignment" {
   for_each             = data.azurerm_policy_definition.BuiltInPolicies
-  name         = "${substr(each.value.display_name,-30,23)}"
+  name                 = substr(each.value.display_name, -30, 23)
+  display_name         = each.value.display_name
   policy_definition_id = each.value.id
 
   management_group_id = data.azurerm_management_group.TenantRootGroup.id
@@ -72,6 +75,35 @@ PARAMS
 
 }
 
+
+resource "azurerm_management_group_policy_assignment" "NPAvivaBuiltInPolicyAssignment" {
+  for_each             = data.azurerm_policy_definition.NPAvivaBuiltInPolicies
+  name                 = substr(each.value.display_name, -30, 23)
+  display_name         = each.value.display_name
+  policy_definition_id = each.value.id
+
+  management_group_id = data.azurerm_management_group.NP-AVIVA.id
+  parameters          = <<PARAMS
+    {
+      "effect": {
+        "value": "Deny"
+      }
+    }
+    
+PARAMS
+
+
+
+}
+
+resource "azurerm_management_group_policy_assignment" "PRAvivaBuiltInPolicyAssignment" {
+  for_each             = data.azurerm_policy_definition.PRAvivaBuiltInPolicies
+  name                 = substr(each.value.display_name, -30, 23)
+  display_name         = each.value.display_name
+  policy_definition_id = each.value.id
+
+  management_group_id = data.azurerm_management_group.PR-AVIVA.id
+}
 
 
 # terraform plan -out assignment.tfplan

@@ -1,3 +1,27 @@
 policy_name
+Storage accounts should restrict network access using virtual network rules
+Storage accounts should restrict network access
 Storage accounts should prevent shared key access
 Storage accounts should prevent cross tenant object replication
+Storage accounts should have the specified minimum TLS version
+Storage account keys should not be expired
+Secure transfer to storage accounts should be enabled
+Public network access should be disabled for Azure File Sync
+Azure NetApp Files Volumes of type NFSv4.1 should use Kerberos data encryption
+[Preview]: Storage account public access should be disallowed
+Azure SQL Database should be running TLS version 1.2 or newer
+Network interfaces should not have public IPs
+Gateway subnets should not be configured with a network security group
+Secrets should have the specified maximum validity period
+Key Vault keys should have an expiration date
+Allowed locations for resource groups
+Allowed locations
+Public network access on Azure Data Factory should be disabled
+App Service Environment should have TLS 1.0 and 1.1 disabled
+App Service Environment should be provisioned with latest versions
+App Service Environment apps should not be reachable over public internet
+HPC Cache accounts should use customer-managed key for encryption
+Queue Storage should use customer-managed key for encryption
+Table Storage should use customer-managed key for encryption
+Azure Key Vault should disable public network access
+
