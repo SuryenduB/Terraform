@@ -5,7 +5,7 @@ provider "aws" {
 
 }
 
-#TF_VAR_secret_key is the Secret key defined in global variable.
+#TF_VAR_secret_key is the Secret key defined in global variable. $env:TF_VAR_secret_key
 
 
 variable "secret_key" {

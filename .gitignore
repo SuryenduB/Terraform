@@ -15,3 +15,4 @@ AWS/terraform.tfvars
 AWS/terraform.tfstate.backup
 Policy/assignment.tfplan
 Policy/.terraform.tfstate.lock.info
+AWS/id_rsa.pub
