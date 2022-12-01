@@ -39,3 +39,17 @@ resource "aws_security_group" "demo_sg" {
     Name = "allow_tls"
   }
 }
+
+
+resource "aws_security_group" "allow_tls2" {
+  name        = "allow_tls2"
+
+  ingress {
+    description = "TLS from VPC"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["${aws_eip.lb1.private_ip}/32"]
+
+  }
+}
