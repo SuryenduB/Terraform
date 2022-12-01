@@ -2,14 +2,14 @@ variable "vpn_ip" {
   default = "116.50.30.50/32"
 }
 variable "instance_type" {
-    default = "t2.micro"
-  
+  default = "t2.micro"
+
 }
 
 variable "usernumber" {
-  type = number
+  type    = number
   default = 12345
-  
+
 }
 
 variable "elb_name" {
@@ -17,7 +17,7 @@ variable "elb_name" {
 }
 
 variable "az" {
-  type = list
+  type = list(any)
 }
 
 variable "timeout" {
@@ -26,8 +26,8 @@ variable "timeout" {
 
 
 variable "elb_names" {
-  type = list
-  default = ["dev-loadbalancer", "stage-loadbalanacer","prod-loadbalancer"]
+  type    = list(any)
+  default = ["dev-loadbalancer", "stage-loadbalanacer", "prod-loadbalancer"]
 }
 
 variable "istest" {}

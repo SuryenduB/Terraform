@@ -9,7 +9,7 @@ provider "aws" {
 
 
 variable "secret_key" {
-  
+
 }
 
 resource "aws_instance" "web" {

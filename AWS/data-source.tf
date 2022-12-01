@@ -1,5 +1,5 @@
 provider "aws" {
-    alias = "southeast"
+  alias      = "southeast"
   region     = "ap-southeast-1"
   access_key = "AKIA3WFERZ2IMP4AGGHJ"
   secret_key = var.secret_key
@@ -8,7 +8,7 @@ provider "aws" {
 
 data "aws_ami" "app_ami" {
   most_recent = true
-  owners = ["amazon"]
+  owners      = ["amazon"]
 
 
   filter {
