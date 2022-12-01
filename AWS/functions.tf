@@ -22,6 +22,3 @@ resource "aws_instance" "app-dev" {
 }
 
 
-output "timestamp" {
-  value = local.time
-}
