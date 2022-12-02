@@ -1,7 +1,7 @@
 resource "aws_iam_user" "lb1" {
-  name = "loadbalancer.${count.index}"
+  name  = "loadbalancer.${count.index}"
   count = 3
-  path = "/system/"
+  path  = "/system/"
 
   tags = {
     tag-key = "tag-value"

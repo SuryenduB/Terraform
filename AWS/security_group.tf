@@ -42,7 +42,7 @@ resource "aws_security_group" "demo_sg" {
 
 
 resource "aws_security_group" "allow_tls2" {
-  name        = "allow_tls2"
+  name = "allow_tls2"
 
   ingress {
     description = "TLS from VPC"

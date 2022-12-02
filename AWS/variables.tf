@@ -48,9 +48,9 @@ variable "tags" {
 variable "ami" {
   type = map(any)
   default = {
-    "us-east-1"  = "ami-0323c3dd2da7fb37d"
-    "us-west-2"  = "ami-0d6621c01e8c2de2c"
-    
+    "us-east-1" = "ami-0323c3dd2da7fb37d"
+    "us-west-2" = "ami-0d6621c01e8c2de2c"
+
   }
 }
 
@@ -58,6 +58,18 @@ variable "sg_ports" {
   type        = list(number)
   description = "list of ingress ports"
   default     = [8200, 8201, 8300, 9200, 9500]
+
+
+}
+
+variable "instance_typews" {
+  type = map(any)
+  default = {
+    default = "t2.nano"
+    dev     = "t2.micro"
+    prod    = "t2.large"
+  }
+
 
 
 }

@@ -13,11 +13,11 @@ output "timestamp" {
 }
 
 output "arns" {
-    value = aws_iam_user.lb1[*].arn
-  
+  value = aws_iam_user.lb1[*].arn
+
 }
 
 output "names" {
-    value = aws_iam_user.lb1[*].name
-  
+  value = aws_iam_user.lb1[*].name
+
 }
