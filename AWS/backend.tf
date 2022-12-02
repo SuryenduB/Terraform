@@ -5,5 +5,6 @@
 #     region = "us-west-2"
 #     access_key = "AKIA3WFERZ2IMP4AGGHJ"
 #     secret_key = ""
+#     dynamodb_table = "s3-state-lock"
 #   }
 # }
