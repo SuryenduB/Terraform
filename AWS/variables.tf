@@ -61,4 +61,6 @@ variable "sg_ports" {
 
 
 }
+
+
 #terraform plan -var-file="custom.tfvars"
