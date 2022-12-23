@@ -27,3 +27,5 @@ moduled_Sa/.terraform.lock.hcl
 .gitignore
 moduled_Sa/.terraform/providers/registry.terraform.io/hashicorp/azurerm/3.36.0/windows_amd64/terraform-provider-azurerm_v3.36.0_x5.exe
 moduled_Sa/terraform.tfstate
+Terragrunt/AIRS/l1/global/resource_groups/.terraform.lock.hcl
+Terragrunt/AIRS/l1/eastus/storage_account/.terraform.lock.hcl

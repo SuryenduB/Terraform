@@ -1,5 +1,5 @@
 terraform {
-  source = "tfr:///Azure/vnet/azurerm//?version=2.6.0"
+  source = "tfr:///andrewCluey/storage-account/azurerm//?version=2.0.0"
 }
 
 include {
@@ -28,11 +28,7 @@ locals {
 }
 
 inputs = {
-  vnet_name           = "vnet-spoke-${local.environment}-${local.location}-001"
-  resource_group_name = dependency.resource_groups.outputs.vnet_resource_group_name
-  address_space       = ["10.0.0.0/16"]
-  subnet_prefixes     = ["10.0.1.0/26", "10.0.2.0/24", "10.0.3.0/24", "10.0.4.0/24"]
-  subnet_names        = ["AzureBastionSubnet", "Management", "Tools", "Workloads"]
+  storage_account_name           = "storageaccount${local.environment}${local.location}001"
   location            = local.location
 
   tags = {

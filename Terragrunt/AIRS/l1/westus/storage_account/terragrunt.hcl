@@ -16,6 +16,7 @@ dependency "resource_groups" {
   mock_outputs = {
     storageaccount_resource_group_name = "rg-terragrunt-mock-001"
   }
+
   mock_outputs_merge_with_state = true
 }
 
@@ -29,10 +30,7 @@ locals {
 
 inputs = {
   vnet_name           = "vnet-spoke-${local.environment}-${local.location}-001"
-  resource_group_name = dependency.resource_groups.outputs.vnet_resource_group_name
-  address_space       = ["10.0.0.0/16"]
-  subnet_prefixes     = ["10.0.1.0/26", "10.0.2.0/24", "10.0.3.0/24", "10.0.4.0/24"]
-  subnet_names        = ["AzureBastionSubnet", "Management", "Tools", "Workloads"]
+  resource_group_name = dependency.resource_groups.outputs.storageaccount_resource_group_name
   location            = local.location
 
   tags = {

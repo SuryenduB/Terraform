@@ -1,5 +1,5 @@
 data "azurerm_client_config" "current" {}
-resource "azurerm_resource_group" "example" {
+resource "azurerm_resource_group" "example" { // Data Sourcing for Resource Group
   name     = "rg-demo-internal-shared-cox-poc-002"
   location = "East US"
 }
@@ -40,7 +40,7 @@ resource "azurerm_storage_account" "asa" {
 }
 
 # Create Private Endpint
-resource "azurerm_private_endpoint" "endpoint" {
+resource "azurerm_private_endpoint" "storage_endpoint" {
   name                = "eu-cox-pe-poc01"
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
@@ -54,7 +54,7 @@ resource "azurerm_private_endpoint" "endpoint" {
   }
 }
 
-resource "azurerm_key_vault" "example" {
+resource "azurerm_key_vault" "this" {
   name                = "kv-eu-cox-poc02"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
