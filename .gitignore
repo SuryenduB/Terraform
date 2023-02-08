@@ -29,3 +29,10 @@ moduled_Sa/.terraform/providers/registry.terraform.io/hashicorp/azurerm/3.36.0/w
 moduled_Sa/terraform.tfstate
 Terragrunt/AIRS/l1/global/resource_groups/.terraform.lock.hcl
 Terragrunt/AIRS/l1/eastus/storage_account/.terraform.lock.hcl
+mdc/terraform.tfstate
+windowsVMs/.terraform.lock.hcl
+windowsVMs/terraform.tfstate
+mdc/.terraform/providers/registry.terraform.io/hashicorp/azurerm/2.99.0/windows_386/terraform-provider-azurerm_v2.99.0_x5.exe
+mdc/.terraform.lock.hcl
+windowsVMs/terraform.tfstate.backup
+windowsVMs/.terraform/providers/registry.terraform.io/hashicorp/azurerm/3.0.0/windows_amd64/terraform-provider-azurerm_v3.0.0_x5.exe
