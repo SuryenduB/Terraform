@@ -36,3 +36,5 @@ mdc/.terraform/providers/registry.terraform.io/hashicorp/azurerm/2.99.0/windows_
 mdc/.terraform.lock.hcl
 windowsVMs/terraform.tfstate.backup
 windowsVMs/.terraform/providers/registry.terraform.io/hashicorp/azurerm/3.0.0/windows_amd64/terraform-provider-azurerm_v3.0.0_x5.exe
+hf/.terraform/providers/registry.terraform.io/hashicorp/azurerm/3.61.0/windows_386/terraform-provider-azurerm_v3.61.0_x5.exe
+hf/.terraform.lock.hcl
