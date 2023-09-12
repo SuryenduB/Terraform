@@ -3,10 +3,10 @@ name: 'Terraform Plan/Apply'
 on:
   push:
     branches:
-    - main
+    - master
   pull_request:
     branches:
-    - main
+    - master
 
 #Special permissions required for OIDC authentication
 permissions:
@@ -100,7 +100,7 @@ jobs:
       
     # If this is a PR post the changes
     - name: Push Terraform Output to PR
-      if: github.ref != 'refs/heads/main'
+      if: github.ref != 'refs/heads/master'
       uses: actions/github-script@v6
       env:
         SUMMARY: "${{ steps.tf-plan-string.outputs.summary }}"
@@ -117,7 +117,7 @@ jobs:
                 
   terraform-apply:
     name: 'Terraform Apply'
-    if: github.ref == 'refs/heads/main' && needs.terraform-plan.outputs.tfplanExitCode == 2
+    if: github.ref == 'refs/heads/master' && needs.terraform-plan.outputs.tfplanExitCode == 2
     runs-on: ubuntu-latest
     environment: production
     needs: [terraform-plan]
