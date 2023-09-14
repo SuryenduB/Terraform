@@ -1,43 +1,92 @@
+name: 'Terraform Plan/Apply'
 
- name: 'Terraform GitHub Actions'
- defaults:
-   run:
-     working-directory: "./"
- on:
-   - pull_request
-   - push
- jobs:
-   terraform:
-     name: 'Terraform'
-     runs-on: ubuntu-latest
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+    branches:
+    - master
 
-     env:
-      TF_VAR_client_id: ${{ secrets.TF_VAR_client_id }}
-      TF_VAR_client_secret: ${{ secrets.TF_VAR_client_secret }}
-      TF_VAR_subscription_id: ${{ secrets.TF_VAR_subscription_id }}
-      TF_VAR_tenant_id: ${{ secrets.TF_VAR_tenant_id }}
+#Special permissions required for OIDC authentication
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
 
+#These environment variables are used by the terraform azure provider to setup OIDD authenticate. 
+env:
+  ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
+  ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+  ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
 
-     steps:
-       - name: Terraform init azurerm backend
-         uses: ahmedig/terraform-azurerm-backend@v1
-         with:
-          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
-          resource_group_name: MultiForest-Home-In-World_2
-          container_name: az500sury
-          storage_account_name: az500sury
-       - uses: actions/checkout@master
-       - name: 'Terraform Init'
-         id: init
-         run: terraform init
-         env:
-           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-       - name: Terraform Validate
-         id: validate
-         run: terraform validate
-       - name: Terraform Apply
-         id: apply
-         run: terraform apply -auto-approve
-       - name: Terraform Destroy
-         id: destroy
-         run: terraform destroy -auto-approve
+jobs:
+  terraform-plan:
+    name: 'Terraform Plan'
+    runs-on: ubuntu-latest
+    env:
+      #this is needed since we are running terraform with read-only permissions
+      ARM_SKIP_PROVIDER_REGISTRATION: true
+    outputs:
+      tfplanExitCode: ${{ steps.tf-plan.outputs.exitcode }}
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    # Change directory to hf
+    - name: Change Directory to hf
+      run: cd hf
+
+    # Install the latest version of the Terraform CLI
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_wrapper: false
+
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init
+      run: terraform init
+
+    # Checks that all Terraform configuration files adhere to a canonical format
+    # Will fail the build if not
+    - name: Terraform Format
+      run: terraform fmt -check
+
+    # Generates an execution plan for Terraform
+    # An exit code of 0 indicated no changes, 1 a terraform failure, 2 there are pending changes.
+    - name: Terraform Plan
+      id: tf-plan
+      run: |
+        export exitcode=0
+        terraform plan -detailed-exitcode -no-color -out tfplan || export exitcode=$?
+
+        echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
+        
+        if [ $exitcode -eq 1 ]; then
+          echo Terraform Plan Failed!
+          exit 1
+        else 
+          exit 0
+        fi
+        
+    # Save plan to artifacts  
+    - name: Publish Terraform Plan
+      uses: actions/upload-artifact@v3
+      with:
+        name: tfplan
+        path: tfplan
+        
+    # Create string output of Terraform Plan
+    - name: Create String Output
+      id: tf-plan-string
+      run: |
+        TERRAFORM_PLAN=$(terraform show -no-color tfplan)
+        
+        delimiter="$(openssl rand -hex 8)"
+        echo "summary<<${delimiter}" >> $GITHUB_OUTPUT
+        echo "## Terraform Plan Output" >> $GITHUB_OUTPUT
+        echo "<details><summary>Click to expand</summary>" >> $GITHUB_OUTPUT
+        echo "" >> $GITHUB_OUTPUT
+        echo '
