@@ -71,6 +71,7 @@ jobs:
         else 
           exit 0
         fi
+     
         
     # Save plan to artifacts  
     - name: Publish Terraform Plan
