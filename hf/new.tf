@@ -1,7 +1,7 @@
 # __generated__ by Terraform
 # Please review these resources and move them into your main configuration files.
 
-# __generated__ by Terraform
+
 resource "azurerm_network_security_rule" "AllowLDAPsInboundWhitelist" {
   access                                     = "Allow"
   description                                = null
