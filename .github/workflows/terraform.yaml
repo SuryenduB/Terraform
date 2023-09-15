@@ -48,6 +48,7 @@ jobs:
     # Change Directory to HF Directory
     - name: Change Directory
       run: cd hf
+      run: pwd
 
 
 
