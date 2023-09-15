@@ -47,12 +47,13 @@ jobs:
 
     # Change Directory to HF Directory and Print Working Directory
     - name: Change Directory
-      run: cd hf && pwd
+      run: cd hf && pwd && ls -la
       
 
 
 
-    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc from the HF Directory
+    
     - name: Terraform Init
       run: terraform init
 
