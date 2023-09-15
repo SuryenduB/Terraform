@@ -45,10 +45,10 @@ jobs:
       with:
         terraform_wrapper: false
 
-    # Change Directory to HF Directory
+    # Change Directory to HF Directory and Print Working Directory
     - name: Change Directory
-      run: cd hf
-      run: pwd
+      run: cd hf && pwd
+      
 
 
 
