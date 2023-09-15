@@ -156,9 +156,13 @@ jobs:
     - name: Terraform Init
       run: terraform init
 
-    # Download saved plan from artifacts  
+    # Download saved plan from artifacts  q
     - name: Download Terraform Plan
       uses: actions/download-artifact@v3
       with:
         name: tfplan
+
+    # Terraform Apply
+    - name: Terraform Apply
+      run: terraform apply -auto-approve tfplan
 
