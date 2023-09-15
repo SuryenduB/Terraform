@@ -4,8 +4,7 @@ on:
   push:
     branches:
     - master
-    paths:
-    - 'hf/**'
+    
   pull_request:
     branches:
     - master
@@ -45,6 +44,16 @@ jobs:
       uses: hashicorp/setup-terraform@v2
       with:
         terraform_wrapper: false
+        # BEGIN: 9d5b4f7f7e4c
+            # Change directory to 'hf'
+            - name: Change directory to 'hf'
+              run: cd hf
+
+            # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+            - name: Terraform Init
+              run: terraform init
+        # END: 9d5b4f7f7e4c
+
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
@@ -71,8 +80,8 @@ jobs:
         else 
           exit 0
         fi
-     
-        
+
+
     # Save plan to artifacts  
     - name: Publish Terraform Plan
       uses: actions/upload-artifact@v3
