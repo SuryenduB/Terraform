@@ -25,7 +25,7 @@ permissions:
 env:
   ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
   ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-  allow-no-subscriptions: true
+  
 
 jobs:
   terraform-plan:
@@ -66,12 +66,12 @@ jobs:
       run: terraform fmt -check
 
     # Az CLI Login with Federated Credentials
-    - name: 'Az CLI login'
+    - name: 'Az CLI login with Federated Credentials'
       uses: azure/login@v1
       with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          allow-no-subscriptions: true
 
     # Generates an execution plan for Terraform
     # An exit code of 0 indicated no changes, 1 a terraform failure, 2 there are pending changes.
