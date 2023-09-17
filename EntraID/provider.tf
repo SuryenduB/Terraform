@@ -9,5 +9,5 @@ terraform {
 # Configure the Microsoft Azure Provider
 provider "azuread" {
   use_oidc = true
-  features {}
+  
 }
