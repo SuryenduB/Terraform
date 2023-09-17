@@ -171,5 +171,5 @@ jobs:
 
     # Terraform Apply
     - name: Terraform Apply
-      run: cd EntraID && terraform apply -auto-approve tfplan
+      run: cd EntraID && terraform apply -auto-approve ../tfplan
 
