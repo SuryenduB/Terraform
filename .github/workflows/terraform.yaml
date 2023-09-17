@@ -50,7 +50,7 @@ jobs:
 
     # Change Directory to HF Directory and Print Working Directory
     - name: Change Directory
-      run: cd hf && pwd && ls -la
+      run: cd EntraID && pwd && ls -la
       
 
 
@@ -58,7 +58,7 @@ jobs:
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc from the HF Directory
     
     - name: Terraform Init
-      run: cd hf && terraform init
+      run: cd EntraID && terraform init
 
     # Checks that all Terraform configuration files adhere to a canonical format
     # Will fail the build if not
@@ -79,7 +79,7 @@ jobs:
       id: tf-plan
       run: |
         export exitcode=0
-        cd hf && terraform plan -detailed-exitcode -no-color -out tfplan || export exitcode=$?
+        cd EntraID && terraform plan -detailed-exitcode -no-color -out tfplan || export exitcode=$?
 
         echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
         
@@ -102,7 +102,7 @@ jobs:
     - name: Create String Output
       id: tf-plan-string
       run: |
-        TERRAFORM_PLAN=$( cd hf && terraform show -no-color tfplan)
+        TERRAFORM_PLAN=$( cd EntraID && terraform show -no-color tfplan)
         
         delimiter="$(openssl rand -hex 8)"
         echo "summary<<${delimiter}" >> $GITHUB_OUTPUT
