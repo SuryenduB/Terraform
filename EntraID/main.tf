@@ -20,8 +20,8 @@ resource "azuread_conditional_access_policy" "example" {
   }
 
   grant_controls {
-    operator          = "OR"
-    built_in_controls = ["passwordChange"]
+    operator          = "AND"
+    built_in_controls = ["mfa","passwordChange"]
   }
 
 
