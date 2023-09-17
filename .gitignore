@@ -40,3 +40,5 @@ hf/.terraform/providers/registry.terraform.io/hashicorp/azurerm/3.61.0/windows_3
 hf/.terraform.lock.hcl
 
 
+EntraID/.terraform.lock.hcl
+EntraID/.terraform/providers/registry.terraform.io/hashicorp/azuread/2.23.0/windows_386/terraform-provider-azuread_v2.23.0_x5.exe
