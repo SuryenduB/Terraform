@@ -1,5 +1,5 @@
-resource "azuread_conditional_access_policy" "example" {
-  display_name = "Require MFA for high risk users"
+resource "azuread_conditional_access_policy" "CA01-BlockHighRiskUsers" {
+  display_name = "Block high risk users"
   state        = "enabledForReportingButNotEnforced"
 
   conditions {
@@ -20,8 +20,8 @@ resource "azuread_conditional_access_policy" "example" {
   }
 
   grant_controls {
-    operator          = "AND"
-    built_in_controls = ["mfa","passwordChange"]
+    operator          = "OR"
+    built_in_controls = ["block"]
   }
 
 
