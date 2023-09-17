@@ -55,7 +55,7 @@ jobs:
 
 
 
-    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc from the HF Directory
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc from the EntraID Directory
     
     - name: Terraform Init
       run: cd EntraID && terraform init
@@ -161,7 +161,7 @@ jobs:
       
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      run: terraform init
+      run: cd EntraID && terraform init
 
     # Download saved plan from artifacts  q
     - name: Download Terraform Plan
@@ -171,5 +171,5 @@ jobs:
 
     # Terraform Apply
     - name: Terraform Apply
-      run: terraform apply -auto-approve tfplan
+      run: cd EntraID && terraform apply -auto-approve tfplan
 
