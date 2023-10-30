@@ -21,7 +21,7 @@ resource "azuread_conditional_access_policy" "CA01-BlockHighRiskUsers" {
 
   grant_controls {
     operator          = "OR"
-    built_in_controls = ["block"]
+    built_in_controls = ["mfa"]
   }
 
 
