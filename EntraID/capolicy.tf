@@ -3,10 +3,6 @@ resource "azuread_conditional_access_policy" "CA01-BlockHighRiskUsers" {
   state        = "enabledForReportingButNotEnforced"
 
   conditions {
-    client_app_types    = ["all"]
-    sign_in_risk_levels = ["high"]
-    user_risk_levels    = ["high"]
-
     applications {
       included_applications = ["All"]
       excluded_applications = []
@@ -17,6 +13,10 @@ resource "azuread_conditional_access_policy" "CA01-BlockHighRiskUsers" {
       included_users = ["All"]
       excluded_users = ["GuestsOrExternalUsers"]
     }
+    client_app_types    = ["all"]
+    
+
+    
   }
 
   grant_controls {
