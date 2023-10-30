@@ -15,7 +15,6 @@ resource "azuread_conditional_access_policy" "CA01-BlockHighRiskUsers" {
     }
     client_app_types    = ["all"]
     
-
     
   }
 
