@@ -1,17 +1,21 @@
-resource "azuread_conditional_access_policy" "CA01-BlockHighRiskUsers" {
+resource "azuread_conditional_access_policy" "CA200-Internals-BaseProtection-AllApps-AnyPlatform-CompliantorAADHJ" {
   display_name = "Block high risk users 1"
   state        = "enabledForReportingButNotEnforced"
 
   conditions {
     applications {
       included_applications = ["All"]
-      excluded_applications = []
+      excluded_applications = [data.azuread_application.intune.object_id]
+    }
+    platforms {
+      included_platforms = ["All"]
+      
     }
 
 
     users {
-      included_users = ["All"]
-      excluded_users = ["GuestsOrExternalUsers"]
+      included_groups = [azuread_group.internals.id]
+      excluded_groups = [azuread_group.breakglass.id,azuread_group.internals-BaseProtection-exclusion.id]
     }
     client_app_types    = ["all"]
     
@@ -20,7 +24,7 @@ resource "azuread_conditional_access_policy" "CA01-BlockHighRiskUsers" {
 
   grant_controls {
     operator          = "OR"
-    built_in_controls = ["mfa"]
+    built_in_controls = ["compliantDevice","domainJoinedDevice"]
   }
 
 
