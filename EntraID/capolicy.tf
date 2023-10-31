@@ -49,11 +49,7 @@ resource "azuread_conditional_access_policy" "CA202-Internals-IdentityProtection
       excluded_groups = [azuread_group.breakglass.id,azuread_group.internals-BaseProtection-exclusion.id]
     }
 
-    platforms {
-      included_platforms = ["all"]
-      
-    
-    }
+
     
     
     
