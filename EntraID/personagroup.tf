@@ -8,7 +8,7 @@ resource "azuread_group" "internals" {
 
   dynamic_membership {
     enabled = true
-    rule    = "user.employeeid -eq \"\\d{5}$\""
+    rule    = "user.employeeid -match \"\\d{5}$\""
   }
 }
 
