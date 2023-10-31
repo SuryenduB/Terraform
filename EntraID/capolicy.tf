@@ -37,7 +37,7 @@ resource "azuread_conditional_access_policy" "CA202-Internals-IdentityProtection
   conditions {
     applications {
       included_applications = ["All"]
-      excluded_applications = [data.azuread_service_principal.intune.client_id]
+     
     }
    
     client_app_types    = ["all"]
