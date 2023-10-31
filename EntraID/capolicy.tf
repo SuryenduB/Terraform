@@ -62,3 +62,42 @@ resource "azuread_conditional_access_policy" "CA202-Internals-IdentityProtection
 
 
 }
+
+resource "azuread_conditional_access_policy" "CA203-Internals-IdentityProtection-AllApps-AnyPlatform-MFAforHighSignInRisk" {
+  display_name = "CA203-Internals-IdentityProtection-AllApps-AnyPlatform-MFAforHighSignInRisk"
+  state        = "enabledForReportingButNotEnforced"
+
+  conditions {
+    applications {
+      included_applications = ["All"]
+     
+    }
+    platforms {
+      included_platforms = ["all"]
+    }
+    client_app_types = [ "all" ]
+    sign_in_risk_levels = [ "high" ]
+
+
+    users {
+      included_groups = [azuread_group.internals.id]
+      excluded_groups = [azuread_group.breakglass.id,azuread_group.internals-BaseProtection-exclusion.id]
+    }
+
+
+    
+    
+    
+  }
+
+  grant_controls {
+    operator          = "AND"
+    built_in_controls = ["mfa"]
+  }
+
+  session_controls {
+    sign_in_frequency_interval = "everyTime"
+  }
+
+
+}
