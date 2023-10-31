@@ -139,7 +139,7 @@ resource "azuread_conditional_access_policy" "CA205-Internals-IdentityProtection
 
   conditions {
     applications {
-      included_applications = [data.azuread_service_principal.intune.client_id]
+      included_applications = ["All"]
 
     }
     platforms {
@@ -194,9 +194,7 @@ resource "azuread_conditional_access_policy" "CA206-Internals-DataandAppProtecti
     built_in_controls = ["approvedApplication", "compliantApplication"]
   }
 
-  session_controls {
-    sign_in_frequency_interval = "everyTime"
-  }
+
 
 }
 
