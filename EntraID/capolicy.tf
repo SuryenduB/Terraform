@@ -1,5 +1,5 @@
 resource "azuread_conditional_access_policy" "CA200-Internals-BaseProtection-AllApps-AnyPlatform-CompliantorAADHJ" {
-  display_name = "Block high risk users 1"
+  display_name = "CA200-Internals-BaseProtection-AllApps-AnyPlatform-CompliantorAADHJ"
   state        = "enabledForReportingButNotEnforced"
 
   conditions {
