@@ -5,7 +5,7 @@ resource "azuread_conditional_access_policy" "CA200-Internals-BaseProtection-All
   conditions {
     applications {
       included_applications = ["All"]
-      excluded_applications = [data.azuread_application.intune.object_id]
+      excluded_applications = [data.azuread_service_principal.intune]
     }
     platforms {
       included_platforms = ["All"]
