@@ -101,3 +101,32 @@ resource "azuread_conditional_access_policy" "CA203-Internals-IdentityProtection
 
 
 }
+
+resource "azuread_conditional_access_policy" "CA204-Internals-IdentityProtection-AllApps-AnyPlatform-BlockLegacyAuth" {
+  display_name = "CA204-Internals-IdentityProtection-AllApps-AnyPlatform-BlockLegacyAuth"
+  state        = "enabledForReportingButNotEnforced"
+
+  conditions {
+    applications {
+      included_applications = ["All"]
+     
+    }
+    platforms {
+      included_platforms = ["all"]
+    }
+    client_app_types = [ "exchangeActiveSync","other" ]
+    sign_in_risk_levels = [ "high" ]
+
+
+    users {
+      included_groups = [azuread_group.internals.id]
+      excluded_groups = [azuread_group.breakglass.id,azuread_group.internals-BaseProtection-exclusion.id]
+    }  
+  }
+
+  grant_controls {
+    operator          = "AND"
+    built_in_controls = ["mfa"]
+  }
+
+}
