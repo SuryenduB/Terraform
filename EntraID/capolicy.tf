@@ -126,7 +126,7 @@ resource "azuread_conditional_access_policy" "CA204-Internals-IdentityProtection
 
   grant_controls {
     operator          = "AND"
-    built_in_controls = ["mfa"]
+    built_in_controls = ["block"]
   }
 
 }
