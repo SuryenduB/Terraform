@@ -526,7 +526,7 @@ resource "azuread_conditional_access_policy" "CA900-WorkloadIdentities-BaseProte
 
      client_applications {
       included_service_principals = ["ServicePrincipalsInMyTenant"]
-      excluded_service_principals = [data.azuread_client_config.current.object_id]
+      
     }
     
     client_app_types = ["all"]
