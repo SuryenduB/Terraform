@@ -507,3 +507,46 @@ resource "azuread_conditional_access_policy" "CA307-Externals-AttackSurfaceReduc
   }
 
 }
+
+
+## Workload Identity Protection Policies (CA900-CA999)
+
+# WorkloadIdentities Base Protection
+
+resource "azuread_conditional_access_policy" "CA900-WorkloadIdentities-BaseProtection-AllApps-AnyPlatform-BlockUntrustedLocations" {
+  display_name = "CA900-WorkloadIdentities-BaseProtection-AllApps-AnyPlatform-BlockUntrustedLocations"
+  state        = "enabledForReportingButNotEnforced"
+
+  conditions {
+    applications {
+      included_applications = ["All"]
+
+
+    }
+
+     client_applications {
+      included_service_principals = ["ServicePrincipalsInMyTenant"]
+      excluded_service_principals = [data.azuread_client_config.current.object_id]
+    }
+    
+    client_app_types = ["all"]
+
+    locations {
+      included_locations = ["all"]
+      excluded_locations = [azuread_named_location.AzureVnet-ip.id, azuread_named_location.TrustedLocation.id]
+    }
+    users {
+      included_users = ["None"]
+    }
+
+
+
+    
+  }
+
+  grant_controls {
+    operator          = "OR"
+    built_in_controls = ["block"]
+  }
+
+}
