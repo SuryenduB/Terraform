@@ -146,7 +146,7 @@ resource "azuread_conditional_access_policy" "CA205-Internals-AppProtection-Micr
       included_platforms = ["all"]
     }
     client_app_types    = ["all"]
-    sign_in_risk_levels = ["high"]
+  
 
 
     users {
@@ -422,7 +422,7 @@ resource "azuread_conditional_access_policy" "CA305-Externals-AppProtection-Micr
       included_platforms = ["all"]
     }
     client_app_types    = ["all"]
-    sign_in_risk_levels = ["high"]
+    
 
 
     users {
@@ -446,7 +446,7 @@ resource "azuread_conditional_access_policy" "CA305-Externals-AppProtection-Micr
 
 
 resource "azuread_conditional_access_policy" "CA306-Externals-DataandAppProtection-AllApps-iOSorAndroid-ClientAppORAPP" {
-  display_name = "CA206-Externals-DataandAppProtection-AllApps-iOSorAndroid-ClientAppORAPP"
+  display_name = "CA306-Externals-DataandAppProtection-AllApps-iOSorAndroid-ClientAppORAPP"
   state        = "enabledForReportingButNotEnforced"
 
   conditions {
