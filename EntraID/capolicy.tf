@@ -497,7 +497,7 @@ resource "azuread_conditional_access_policy" "CA307-Externals-AttackSurfaceReduc
 
     users {
       included_groups = [azuread_group.externals.id]
-      excluded_groups = [azuread_group.breakglass.id,  azuread_group.Externals-AttackSurfaceReduction-Exclusions.id]
+      excluded_groups = [azuread_group.breakglass.id,  azuread_group.Externals-AttackSurfaceReduction-Exclusions.id, azuread_group.Internals-AttackSurfaceReduction-Exclusions.id ]
     }
   }
 
@@ -516,34 +516,22 @@ resource "azuread_conditional_access_policy" "CA307-Externals-AttackSurfaceReduc
 resource "azuread_conditional_access_policy" "CA900-WorkloadIdentities-BaseProtection-AllApps-AnyPlatform-BlockUntrustedLocations" {
   display_name = "CA900-WorkloadIdentities-BaseProtection-AllApps-AnyPlatform-BlockUntrustedLocations"
   state        = "enabledForReportingButNotEnforced"
-
   conditions {
     applications {
       included_applications = ["All"]
-
-
     }
-
      client_applications {
-      included_service_principals = ["ServicePrincipalsInMyTenant"]
-      
+      included_service_principals = ["ServicePrincipalsInMyTenant"] 
     }
-    
     client_app_types = ["all"]
-
     locations {
       included_locations = ["all"]
       excluded_locations = [azuread_named_location.AzureVnet-ip.id]
     }
     users {
       included_users = ["None"]
-    }
-
-
-
-    
+    }    
   }
-
   grant_controls {
     operator          = "OR"
     built_in_controls = ["block"]
