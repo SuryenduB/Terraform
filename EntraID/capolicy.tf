@@ -533,7 +533,7 @@ resource "azuread_conditional_access_policy" "CA900-WorkloadIdentities-BaseProte
 
     locations {
       included_locations = ["all"]
-      excluded_locations = [azuread_named_location.AzureVnet-ip.id, azuread_named_location.TrustedLocation.id]
+      excluded_locations = [azuread_named_location.AzureVnet-ip.id]
     }
     users {
       included_users = ["None"]
