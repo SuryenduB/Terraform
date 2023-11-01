@@ -31,6 +31,30 @@ resource "azuread_group" "internals-BaseProtection-exclusion" {
 
 }
 
+resource "azuread_group" "internals-AppProtection-exclusion" {
+  display_name     = "CA-Persona-Internals-AppProtection-Exclusions"
+  owners           = [data.azuread_client_config.current.object_id]
+  security_enabled = true
+
+
+}
+
+resource "azuread_group" "internals-IdentityProtection-exclusion" {
+  display_name     = "CA-Persona-Internals-IdentityProtection-Exclusions"
+  owners           = [data.azuread_client_config.current.object_id]
+  security_enabled = true
+
+
+}
+
+resource "azuread_group" "internals-DataProtection-exclusion" {
+  display_name     = "CA-Persona-Internals-DataProtection-Exclusions"
+  owners           = [data.azuread_client_config.current.object_id]
+  security_enabled = true
+
+
+}
+
 resource "azuread_group" "Internals-AttackSurfaceReduction-Exclusions" {
   display_name     = "CA-Persona-Internals-AttackSurfaceReduction-Exclusions"
   owners           = [data.azuread_client_config.current.object_id]
@@ -44,6 +68,38 @@ resource "azuread_group" "Internals-AttackSurfaceReduction-Exclusions" {
 
 resource "azuread_group" "externals-BaseProtection-exclusion" {
   display_name     = "CA-Persona-Externals-BaseProtection-Exclusions"
+  owners           = [data.azuread_client_config.current.object_id]
+  security_enabled = true
+
+
+}
+
+resource "azuread_group" "externals-IdentityProtection-exclusion" {
+  display_name     = "CA-Persona-Externals-IdentityProtection-Exclusions"
+  owners           = [data.azuread_client_config.current.object_id]
+  security_enabled = true
+
+}
+
+resource "azuread_group" "externals-AppProtection-exclusion" {
+  display_name     = "CA-Persona-Externals-AppProtection-Exclusions"
+  owners           = [data.azuread_client_config.current.object_id]
+  security_enabled = true
+
+
+}
+
+resource "azuread_group" "externals-DataProtection-exclusion" {
+  display_name     = "CA-Persona-Externals-DataProtection-Exclusions"
+  owners           = [data.azuread_client_config.current.object_id]
+  security_enabled = true
+
+
+}
+
+
+resource "azuread_group" "Externals-AttackSurfaceReduction-Exclusions" {
+  display_name     = "CA-Persona-Externals-AttackSurfaceReduction-Exclusions"
   owners           = [data.azuread_client_config.current.object_id]
   security_enabled = true
 
