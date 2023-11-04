@@ -1,3 +1,4 @@
+
 resource "azuread_named_location" "AzureVnet-ip" {
   display_name = "AzureVnet-ip IP Named Location"
   ip {

@@ -1,3 +1,4 @@
+
 resource "azuread_conditional_access_policy" "CA200-Internals-BaseProtection-AllApps-AnyPlatform-CompliantorAADHJ" {
   display_name = "CA200-Internals-BaseProtection-AllApps-AnyPlatform-CompliantorAADHJ"
   state        = "enabledForReportingButNotEnforced"
@@ -11,11 +12,14 @@ resource "azuread_conditional_access_policy" "CA200-Internals-BaseProtection-All
       included_platforms = ["all"]
 
     }
-
+   
+    
+    
 
     users {
-      included_groups = [azuread_group.internals.id]
-      excluded_groups = [azuread_group.breakglass.id, azuread_group.internals-BaseProtection-exclusion.id]
+      included_groups = [ azuread_group.CA-Persona-Groups["Internals"].id ]
+      excluded_groups = [azuread_group.breakglass.id, azuread_group.CA-Persona-Groups-Exclusions["Internals.BaseProtection"].id]
+      
     }
     client_app_types = ["all"]
 
@@ -29,6 +33,8 @@ resource "azuread_conditional_access_policy" "CA200-Internals-BaseProtection-All
 
 
 }
+
+
 
 resource "azuread_conditional_access_policy" "CA202-Internals-IdentityProtection-AllApps-AnyPlatform-MFAandPWDforHighUserRisk" {
   display_name = "CA202-Internals-IdentityProtection-AllApps-AnyPlatform-MFAandPWDforHighUserRisk"
@@ -45,8 +51,8 @@ resource "azuread_conditional_access_policy" "CA202-Internals-IdentityProtection
 
 
     users {
-      included_groups = [azuread_group.internals.id]
-      excluded_groups = [azuread_group.breakglass.id, azuread_group.internals-IdentityProtection-exclusion.id]
+      included_groups = [azuread_group.CA-Persona-Groups["Internals"].id]
+      excluded_groups = [azuread_group.breakglass.id, azuread_group.CA-Persona-Groups-Exclusions["Internals.IdentityProtection"].id]
     }
 
 
@@ -80,8 +86,8 @@ resource "azuread_conditional_access_policy" "CA203-Internals-IdentityProtection
 
 
     users {
-      included_groups = [azuread_group.internals.id]
-      excluded_groups = [azuread_group.breakglass.id, azuread_group.internals-IdentityProtection-exclusion.id]
+      included_groups = [azuread_group.CA-Persona-Groups["Internals"].id]
+      excluded_groups = [azuread_group.breakglass.id, azuread_group.CA-Persona-Groups-Exclusions["Internals.IdentityProtection"].id]
     }
 
 
@@ -119,8 +125,8 @@ resource "azuread_conditional_access_policy" "CA204-Internals-IdentityProtection
 
 
     users {
-      included_groups = [azuread_group.internals.id]
-      excluded_groups = [azuread_group.breakglass.id, azuread_group.internals-IdentityProtection-exclusion.id]
+      included_groups = [azuread_group.CA-Persona-Groups["Internals"].id]
+      excluded_groups = [azuread_group.breakglass.id, azuread_group.CA-Persona-Groups-Exclusions["Internals.IdentityProtection"].id]
     }
   }
 
@@ -130,6 +136,7 @@ resource "azuread_conditional_access_policy" "CA204-Internals-IdentityProtection
   }
 
 }
+
 
 # Internals App and Data Protection
 
@@ -150,8 +157,8 @@ resource "azuread_conditional_access_policy" "CA205-Internals-AppProtection-Micr
 
 
     users {
-      included_groups = [azuread_group.internals.id]
-      excluded_groups = [azuread_group.breakglass.id, azuread_group.internals-AppProtection-exclusion.id]
+      included_groups = [azuread_group.CA-Persona-Groups["Internals"].id]
+      excluded_groups = [azuread_group.breakglass.id, azuread_group.CA-Persona-Groups-Exclusions["Internals.AppProtection"].id]
     }
   }
 
@@ -184,8 +191,8 @@ resource "azuread_conditional_access_policy" "CA206-Internals-DataandAppProtecti
 
 
     users {
-      included_groups = [azuread_group.internals.id]
-      excluded_groups = [azuread_group.breakglass.id, azuread_group.internals-DataProtection-exclusion.id]
+      included_groups = [azuread_group.CA-Persona-Groups["Internals"].id]
+      excluded_groups = [azuread_group.breakglass.id, azuread_group.CA-Persona-Groups-Exclusions["Internals.DataProtection"].id]
     }
   }
 
@@ -218,8 +225,8 @@ resource "azuread_conditional_access_policy" "CA207-Internals-AttackSurfaceReduc
 
 
     users {
-      included_groups = [azuread_group.internals.id]
-      excluded_groups = [azuread_group.breakglass.id,  azuread_group.Internals-AttackSurfaceReduction-Exclusions.id]
+      included_groups = [azuread_group.CA-Persona-Groups["Internals"].id]
+      excluded_groups = [azuread_group.breakglass.id,  azuread_group.CA-Persona-Groups-Exclusions["Internals.AttackSurfaceReduction"].id]
     }
   }
 
@@ -254,8 +261,8 @@ resource "azuread_conditional_access_policy" "CA300-Externals-BaseProtection-All
 
 
     users {
-      included_groups = [azuread_group.externals.id]
-      excluded_groups = [azuread_group.breakglass.id, azuread_group.externals-BaseProtection-exclusion.id]
+      included_groups = [azuread_group.CA-Persona-Groups["Externals"].id]
+      excluded_groups = [azuread_group.breakglass.id, azuread_group.CA-Persona-Groups-Exclusions["Externals.BaseProtection"].id]
     }
     client_app_types = ["all"]
 
@@ -290,8 +297,8 @@ resource "azuread_conditional_access_policy" "CA301-Externals-IdentityProtection
 
 
     users {
-      included_groups = [azuread_group.externals.id]
-      excluded_groups = [azuread_group.breakglass.id, azuread_group.externals-IdentityProtection-exclusion.id]
+      included_groups = [azuread_group.CA-Persona-Groups["Externals"].id]
+      excluded_groups = [azuread_group.breakglass.id, azuread_group.CA-Persona-Groups-Exclusions["Externals.IdentityProtection"].id]
     }
     client_app_types = ["all"]
 
@@ -319,8 +326,8 @@ resource "azuread_conditional_access_policy" "CA302-Externals-IdentityProtection
 
 
     users {
-      included_groups = [azuread_group.externals.id]
-      excluded_groups = [azuread_group.breakglass.id, azuread_group.externals-IdentityProtection-exclusion.id]
+      included_groups = [azuread_group.CA-Persona-Groups["Externals"].id]
+      excluded_groups = [azuread_group.breakglass.id, azuread_group.CA-Persona-Groups-Exclusions["Externals.IdentityProtection"].id]
     }
 
 
@@ -354,8 +361,8 @@ resource "azuread_conditional_access_policy" "CA303-Externals-IdentityProtection
 
 
     users {
-      included_groups = [azuread_group.externals.id]
-      excluded_groups = [azuread_group.breakglass.id, azuread_group.externals-IdentityProtection-exclusion.id]
+      included_groups = [azuread_group.CA-Persona-Groups["Externals"].id]
+      excluded_groups = [azuread_group.breakglass.id, azuread_group.CA-Persona-Groups-Exclusions["Externals.IdentityProtection"].id]
     }
 
 
@@ -393,8 +400,8 @@ resource "azuread_conditional_access_policy" "CA304-Externals-IdentityProtection
 
 
     users {
-      included_groups = [azuread_group.internals.id]
-      excluded_groups = [azuread_group.breakglass.id, azuread_group.externals-IdentityProtection-exclusion.id]
+      included_groups = [azuread_group.CA-Persona-Groups["Internals"].id]
+      excluded_groups = [azuread_group.breakglass.id, azuread_group.CA-Persona-Groups-Exclusions["Externals.IdentityProtection"].id]
     }
   }
 
@@ -426,8 +433,8 @@ resource "azuread_conditional_access_policy" "CA305-Externals-AppProtection-Micr
 
 
     users {
-      included_groups = [azuread_group.externals.id]
-      excluded_groups = [azuread_group.breakglass.id, azuread_group.externals-AppProtection-exclusion.id]
+      included_groups = [azuread_group.CA-Persona-Groups["Externals"].id]
+      excluded_groups = [azuread_group.breakglass.id, azuread_group.CA-Persona-Groups-Exclusions["Externals.AppProtection"].id]
     }
   }
 
@@ -463,8 +470,8 @@ resource "azuread_conditional_access_policy" "CA306-Externals-DataandAppProtecti
 
 
     users {
-      included_groups = [azuread_group.externals.id]
-      excluded_groups = [azuread_group.breakglass.id, azuread_group.externals-DataProtection-exclusion.id]
+      included_groups = [azuread_group.CA-Persona-Groups["Externals"].id]
+      excluded_groups = [azuread_group.breakglass.id, azuread_group.CA-Persona-Groups-Exclusions["Externals.DataProtection"].id]
     }
   }
 
@@ -496,8 +503,8 @@ resource "azuread_conditional_access_policy" "CA307-Externals-AttackSurfaceReduc
 
 
     users {
-      included_groups = [azuread_group.externals.id]
-      excluded_groups = [azuread_group.breakglass.id,  azuread_group.Externals-AttackSurfaceReduction-Exclusions.id, azuread_group.Internals-AttackSurfaceReduction-Exclusions.id ]
+      included_groups = [azuread_group.CA-Persona-Groups["Externals"].id]
+      excluded_groups = [azuread_group.breakglass.id,  azuread_group.CA-Persona-Groups-Exclusions["Externals.AttackSurfaceReduction"].id ]
     }
   }
 
@@ -538,3 +545,42 @@ resource "azuread_conditional_access_policy" "CA900-WorkloadIdentities-BaseProte
   }
 
 }
+
+### Global Policies (CA001-CA099)
+
+# Global Base Protection Policies
+
+resource "azuread_conditional_access_policy" "CA001-Global-BaseProtection-AllApps-AnyPlatform-BlockNonPersonas" {
+  display_name = "CA001-Global-BaseProtection-AllApps-AnyPlatform-BlockNonPersonas"
+  state        = "enabledForReportingButNotEnforced"
+
+  conditions {
+    applications {
+      included_applications = ["All"]
+      
+    }
+    platforms {
+      included_platforms = ["all"]
+
+    }
+
+
+    users {
+      included_groups = ["All"]
+      excluded_groups = [azuread_group.breakglass.id,azuread_group.CA-Persona-Groups["Admins"].id, azuread_group.CA-Persona-Groups["WorkloadIdentities"].id,azuread_group.CA-Persona-Groups["Internals"].id, azuread_group.CA-Persona-Groups["Externals"].id,azuread_group.CA-Persona-Groups["Guests"].id,azuread_group.CA-Persona-Groups["GuestAdmins"].id,azuread_group.CA-Persona-Groups["CorpServiceAccounts"].id,azuread_group.CA-Persona-Groups["Developers"].id]
+    }
+    client_app_types = ["all"]
+
+
+  }
+
+  grant_controls {
+    operator          = "OR"
+    built_in_controls = ["block"]
+  }
+
+
+}
+
+
+

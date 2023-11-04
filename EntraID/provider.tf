@@ -6,7 +6,7 @@ terraform {
     }
   }
 
-  backend "azurerm" {
+  /*backend "azurerm" {
     storage_account_name = "iamstgsa"
     container_name       = "tfstate"
     key                  = "terraform.tfstate"
@@ -14,7 +14,7 @@ terraform {
     # rather than defining this inline, the Access Key can also be sourced
     # from an Environment Variable - more information is available below.
 
-  }
+  }*/
 
 
 }
