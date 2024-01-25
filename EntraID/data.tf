@@ -1,4 +1,9 @@
 
 data "azuread_service_principal" "intune" {
-  client_id = "d4ebce55-015a-49b5-a083-c84d1797ae8c"
+  client_id = "754029bc-6a9e-4784-a59a-c7dfcd471361"
 }
+data "azuread_user" "Adele_user" {
+  user_principal_name = "AdeleV@03z3s.onmicrosoft.com"
+}
+
+
