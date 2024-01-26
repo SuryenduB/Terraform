@@ -12,12 +12,23 @@ module "test_application" {
             value = "TestApplication Role"
         }
     ]
-    id_token = [
-        {
-            name = "Test"
-            essential = true
-            source = null
-            additional_properties = null
-        }
-    ]
+    app_role_assignment_required = true
+    description = "Test Application Description"
+    preferred_single_sign_on_mode = "saml"
+    claims_mapping_policy = {
+        claims_schema = [
+            {
+                id = "id"
+                jwt_claim_type = "name"
+                Saml_Claim_Type = "name"
+                source = "user"
+            }
+        ]
+        include_basic_claim_set = "true"
+        version = "1"
+       }
+    
+    generate_certificate = false
+    
+
 }

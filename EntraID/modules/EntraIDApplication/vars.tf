@@ -36,11 +36,8 @@ variable id_token {
     source = string,
     additional_properties = list(string)
   }))
-  default = [ 
-    
-  ]
-} 
-
+  default = null
+}
 
 variable access_token {
   type = list(object({
@@ -49,9 +46,7 @@ variable access_token {
     source = string,
     additional_properties = list(string)
   }))
-  default = [ 
-    
-  ]
+  default = null
 } 
 
 variable saml2_token {
@@ -61,8 +56,52 @@ variable saml2_token {
     source = string,
     additional_properties = list(string)
   }))
-  default = [ 
-    
-  ]
+  default = null
+  
+}
+variable "app_role_assignment_required" {
+  type = bool
+  default = true
+
+
+}
+
+variable "description" {
+  type = string
+  default = null
+  
+}
+
+variable "preferred_single_sign_on_mode" {
+  type = string
+  default = "notSupported"
+  
+}
+
+variable "relay_state" {
+  type = string
+  default = null
+  
+}
+
+variable "generate_certificate" {
+  type = bool
+  default = false
+  
+}
+
+variable "claims_mapping_policy" {
+  type = object({
+    claims_schema = list(object({
+      id = string,
+      jwt_claim_type = string,
+      Saml_Claim_Type = string,
+      source = string
+    }))
+    include_basic_claim_set = string
+    version = number
+  })
+  default = null
+
   
 }
