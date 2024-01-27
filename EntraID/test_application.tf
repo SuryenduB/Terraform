@@ -10,6 +10,11 @@ module "test_application" {
             description = "Test Application Role"
             display_name = "Test Application"
             value = "TestApplication Role"
+        },
+        {
+            description = "Test Application Role2"
+            display_name = "Test Application Role 2"
+            value = "TestApplicationRole2"
         }
     ]
     app_role_assignment_required = true
@@ -29,6 +34,7 @@ module "test_application" {
        }
     
     generate_certificate = false
+    generate_secret = false
     
 
 }

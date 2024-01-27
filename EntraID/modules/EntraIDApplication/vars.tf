@@ -90,6 +90,12 @@ variable "generate_certificate" {
   
 }
 
+variable "generate_secret" {
+  type = bool
+  default = false
+  
+}
+
 variable "claims_mapping_policy" {
   type = object({
     claims_schema = list(object({

@@ -99,7 +99,7 @@ resource "azuread_application" "example" {
 
 # Application Roles to be added to the Application Registration
 
-resource "random_uuid" "example_administrator" {}
+
 
 
 resource "random_uuid" "example" {
@@ -114,13 +114,33 @@ resource "random_uuid" "example" {
 resource "azuread_application_app_role" "example_administer" {
   application_id       = azuread_application.example.id
   for_each             = local.app_roles
-  role_id              = random_uuid.example_administrator.id
+  role_id              = random_uuid.example[each.key].id
   allowed_member_types = ["User"]
   description          = each.value.description
   display_name         = each.key
   value                = replace(each.value.value, "/[^a-zA-Z0-9]/", "")
 }
 
+
+# Create  Security Group for Application Role Assignment
+resource "azuread_group" "example_administer_group" {
+  for_each             = local.app_roles
+  display_name         = "access_control_group_${each.key}_for_${var.display_name}"
+  security_enabled = true
+  owners = [data.azuread_client_config.current.object_id]
+  description = "Group for Application Role Assignment for ${each.key} for ${var.display_name} Application"
+}
+
+
+
+
+# Assign Application Roles to the Security Group
+resource "azuread_app_role_assignment" "example_administer" {
+  for_each = local.app_roles
+  principal_object_id = azuread_group.example_administer_group[each.key].id
+  resource_object_id  = azuread_service_principal.example.id
+  app_role_id = azuread_application_app_role.example_administer[each.key].role_id
+}
 
 
 # Optional Claims to be added to the Application Registration
@@ -202,6 +222,7 @@ resource "azuread_service_principal" "example" {
   
 }
 
+# Create a Certificate for the Service Principal
 resource "azuread_service_principal_certificate" "example" {
   count = var.generate_certificate ? 1 : 0
   service_principal_id = azuread_service_principal.example.id
@@ -209,6 +230,24 @@ resource "azuread_service_principal_certificate" "example" {
   value                = file("cert.pem")
   end_date_relative    = "8760h" # 1 year
 }
+
+# Create a Secret for the Service Principal
+
+resource "time_rotating" "example" {
+  rotation_days = 365
+}
+
+resource "azuread_service_principal_password" "example" {
+  count = var.generate_secret ? 1 : 0
+  service_principal_id = azuread_service_principal.example.id
+  rotate_when_changed = {
+    rotation = time_rotating.example.id
+  }
+}
+
+
+
+# Create and Assign Claims Mapping Policy
 
 resource "azuread_claims_mapping_policy" "my_policy" {
   count       = local.create_claim_mapping_policy ? 1 : 0

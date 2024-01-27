@@ -42,3 +42,8 @@ hf/.terraform.lock.hcl
 
 EntraID/.terraform.lock.hcl
 EntraID/.terraform/providers/registry.terraform.io/hashicorp/azuread/2.23.0/windows_386/terraform-provider-azuread_v2.23.0_x5.exe
+EntraID/terraform.tfstate
+EntraID/terraform.tfstate.backup
+EntraID/terraform.tfstate
+.gitignore
+EntraID/.terraform/providers/registry.terraform.io/hashicorp/time/0.10.0/windows_386/terraform-provider-time_v0.10.0_x5.exe
