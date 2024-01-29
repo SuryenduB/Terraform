@@ -1,14 +1,18 @@
-# Entrada ID Application
+# terraform-azuread-application
 
 ## Requirements
 
-No requirements.
+The following requirements are needed by this module:
+
+- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>= 0.13.0)
+
+- <a name="requirement_azuread"></a> [azuread](#requirement\_azuread) (~> 2.15.0)
 
 ## Providers
 
 The following providers are used by this module:
 
-- <a name="provider_azuread"></a> [azuread](#provider\_azuread)
+- <a name="provider_azuread"></a> [azuread](#provider\_azuread) (~> 2.15.0)
 
 - <a name="provider_random"></a> [random](#provider\_random)
 
