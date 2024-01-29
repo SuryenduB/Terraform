@@ -1,5 +1,5 @@
 # resource "azuread_application" "bookings_api_application" {
-    
+
 #     display_name     = "bookings-api"
 #     identifier_uris  = ["api://bookings"]
 #     owners           = [data.azuread_client_config.current.object_id]

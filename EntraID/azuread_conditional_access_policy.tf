@@ -12,14 +12,14 @@
 #       included_platforms = ["all"]
 
 #     }
-   
-    
-    
+
+
+
 
 #     users {
 #       included_groups = [ azuread_group.CA-Persona-Groups["Internals"].id ]
 #       excluded_groups = [azuread_group.breakglass.id, azuread_group.CA-Persona-Groups-Exclusions["Internals.BaseProtection"].id]
-      
+
 #     }
 #     client_app_types = ["all"]
 
@@ -153,7 +153,7 @@
 #       included_platforms = ["all"]
 #     }
 #     client_app_types    = ["all"]
-  
+
 
 
 #     users {
@@ -187,7 +187,7 @@
 #       included_platforms = ["iOS", "android"]
 #     }
 #     client_app_types    = ["all"]
-   
+
 
 
 #     users {
@@ -396,7 +396,7 @@
 #       included_platforms = ["all"]
 #     }
 #     client_app_types    = ["exchangeActiveSync", "other"]
-   
+
 
 
 #     users {
@@ -429,7 +429,7 @@
 #       included_platforms = ["all"]
 #     }
 #     client_app_types    = ["all"]
-    
+
 
 
 #     users {
@@ -466,7 +466,7 @@
 #       included_platforms = ["iOS", "android"]
 #     }
 #     client_app_types    = ["all"]
- 
+
 
 
 #     users {
@@ -557,7 +557,7 @@
 #   conditions {
 #     applications {
 #       included_applications = ["All"]
-      
+
 #     }
 #     platforms {
 #       included_platforms = ["all"]

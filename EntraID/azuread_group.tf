@@ -25,7 +25,7 @@
 #     "Ring2",
 #     "Ring3",
 #   ]
-  
+
 
 #   # Nested loop over both lists, and flatten the result.
 #   persona_type_policy_type = distinct(flatten([
@@ -71,7 +71,7 @@
 #   dynamic_membership {
 #     enabled = true
 #     rule = each.value == "Internals" ? "user.employeeid -match \"\\d{5}$\"" : each.value == "Externals" ? "user.userPrincipalName -contains \"ext\"" : each.value == "Guests" ? "user.userType  -contains \"Guest\"" : each.value == "CorpServiceAccounts" ? "user.userPrincipalName -contains \"serviceAccounts\"" : each.value == "Admins" ? "user.userPrincipalName -contains \"admin\"" : each.value == "GuestAdmins" ? "user.userType  -contains \"Guest\" -and user.userPrincipalName -contains \"admins\" "   : "user.department -match \"${each.value}\""
-    
+
 #   }
 
 # }
@@ -90,7 +90,7 @@
 
 # resource "azuread_group" "breakglass" {
 #   display_name     = "CA-Breakglass"
-  
+
 #   security_enabled = true
 
 

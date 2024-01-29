@@ -111,3 +111,30 @@ variable "claims_mapping_policy" {
 
   
 }
+
+variable "generate_catalog_access_package" {
+  type = bool
+  default = false
+  
+}
+
+variable "access_package_assignment_policy_approval_required"{
+  type = bool
+  default = false
+}
+
+variable "approver_group_name" {
+  type = string
+  default = "Administrators"
+  
+}
+variable "access_package_assignment_policy_duration_in_days" {
+  type = number
+  default = 14
+  
+}
+
+variable "object_owner_upn" {
+  type = string
+  
+}

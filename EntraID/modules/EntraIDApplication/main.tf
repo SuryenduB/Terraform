@@ -10,7 +10,7 @@ locals {
   claims_mapping_policy = {
     definition = [
       jsonencode(
-       var.claims_mapping_policy
+        var.claims_mapping_policy
 
       )
     ],
@@ -31,7 +31,7 @@ resource "azuread_application" "example" {
   display_name     = var.display_name
   identifier_uris  = var.identifier_uris
   logo_image       = local.logo_image
-  owners           = [data.azuread_client_config.current.object_id]
+  owners           = [data.azuread_user.owner.id]
   sign_in_audience = var.sign_in_audience
   description      = var.description
 
@@ -124,11 +124,11 @@ resource "azuread_application_app_role" "example_administer" {
 
 # Create  Security Group for Application Role Assignment
 resource "azuread_group" "example_administer_group" {
-  for_each             = local.app_roles
-  display_name         = "access_control_group_${each.key}_for_${var.display_name}"
+  for_each         = local.app_roles
+  display_name     = "access_control_group_${each.key}_for_${var.display_name}"
   security_enabled = true
-  owners = [data.azuread_client_config.current.object_id]
-  description = "Group for Application Role Assignment for ${each.key} for ${var.display_name} Application"
+  owners           = [data.azuread_user.owner.id, data.azuread_client_config.current.object_id]
+  description      = "Group for Application Role Assignment for ${each.key} for ${var.display_name} Application"
 }
 
 
@@ -136,10 +136,10 @@ resource "azuread_group" "example_administer_group" {
 
 # Assign Application Roles to the Security Group
 resource "azuread_app_role_assignment" "example_administer" {
-  for_each = local.app_roles
+  for_each            = local.app_roles
   principal_object_id = azuread_group.example_administer_group[each.key].id
   resource_object_id  = azuread_service_principal.example.id
-  app_role_id = azuread_application_app_role.example_administer[each.key].role_id
+  app_role_id         = azuread_application_app_role.example_administer[each.key].role_id
 }
 
 
@@ -210,7 +210,7 @@ resource "azuread_service_principal" "example" {
   depends_on                   = [azuread_application.example]
   client_id                    = azuread_application.example.client_id
   app_role_assignment_required = var.app_role_assignment_required
-  owners                       = [data.azuread_client_config.current.object_id]
+  owners                       = [data.azuread_user.owner.id]
   description                  = var.description
   feature_tags {
     custom_single_sign_on = true
@@ -219,12 +219,12 @@ resource "azuread_service_principal" "example" {
   saml_single_sign_on {
     relay_state = var.relay_state
   }
-  
+
 }
 
 # Create a Certificate for the Service Principal
 resource "azuread_service_principal_certificate" "example" {
-  count = var.generate_certificate ? 1 : 0
+  count                = var.generate_certificate ? 1 : 0
   service_principal_id = azuread_service_principal.example.id
   type                 = "AsymmetricX509Cert"
   value                = file("cert.pem")
@@ -238,7 +238,7 @@ resource "time_rotating" "example" {
 }
 
 resource "azuread_service_principal_password" "example" {
-  count = var.generate_secret ? 1 : 0
+  count                = var.generate_secret ? 1 : 0
   service_principal_id = azuread_service_principal.example.id
   rotate_when_changed = {
     rotation = time_rotating.example.id
@@ -250,13 +250,92 @@ resource "azuread_service_principal_password" "example" {
 # Create and Assign Claims Mapping Policy
 
 resource "azuread_claims_mapping_policy" "my_policy" {
-  count       = local.create_claim_mapping_policy ? 1 : 0
+  count        = local.create_claim_mapping_policy ? 1 : 0
   display_name = local.claims_mapping_policy.display_name
   definition   = local.claims_mapping_policy.definition
 }
 
 resource "azuread_service_principal_claims_mapping_policy_assignment" "app" {
-  count       = local.create_claim_mapping_policy ? 1 : 0
+  count                    = local.create_claim_mapping_policy ? 1 : 0
   claims_mapping_policy_id = azuread_claims_mapping_policy.my_policy[count.index].id
   service_principal_id     = azuread_service_principal.example.id
+}
+
+
+# Create Catalog if var.catalog is present
+resource "azuread_access_package_catalog" "example" {
+  count        = var.generate_catalog_access_package != false ? 1 : 0
+  display_name = "Catalog for ${var.display_name}"
+  description  = "Catalog for ${var.display_name} to Assign and Add App Roles"
+  published    = true
+  externally_visible = false
+ 
+}
+
+#Assign all security groups we have created to our catalog if catalog is present
+resource "azuread_access_package_resource_catalog_association" "example_groups" {
+  for_each = var.generate_catalog_access_package != false ? azuread_group.example_administer_group : {}
+  #count       = var.generate_catalog_access_package != false ? length(azuread_group.example_administer_group) : 0
+  catalog_id             = azuread_access_package_catalog.example[0].id
+  resource_origin_id     = each.value.id
+  resource_origin_system = "AadGroup"
+}
+
+# Create an access package for each application role
+resource "azuread_access_package" "application_roles" {
+  #count       = var.generate_catalog_access_package != false ? length(local.app_roles) : 0
+  for_each = var.generate_catalog_access_package != false ? local.app_roles : {}
+  #count       = var.generate_catalog_access_package != false ? length(azuread_group.example_administer_group) : 0
+  catalog_id   = azuread_access_package_catalog.example[0].id
+  display_name = "Access Package for ${each.key} for ${var.display_name}"
+  description  = "Access Package for ${each.key} for ${var.display_name}"
+  hidden       = false
+}
+
+# Associate All Security Group to the respective security Package
+resource "azuread_access_package_resource_package_association" "azuread_access_package_resource_catalog_association" {
+  for_each                        = var.generate_catalog_access_package != false ? azuread_access_package_resource_catalog_association.example_groups : {}
+  access_package_id               = azuread_access_package.application_roles[each.key].id
+  catalog_resource_association_id = each.value.id
+
+}
+
+resource "azuread_access_package_assignment_policy" "example" {
+  for_each          = var.generate_catalog_access_package != false ? azuread_access_package.application_roles : {}
+  access_package_id = each.value.id
+  display_name      = "assignment-policy for ${each.key} for ${var.display_name} Application"
+  description       = "Assignment Policy for ${each.key} for ${var.display_name} Application"
+  duration_in_days  = var.access_package_assignment_policy_duration_in_days
+
+  requestor_settings {
+    scope_type = "AllExistingDirectoryMemberUsers"
+  }
+
+  dynamic "approval_settings" {
+    for_each = var.access_package_assignment_policy_approval_required != false ? [1] : []
+    content {
+      approval_required = var.access_package_assignment_policy_approval_required
+      requestor_justification_required = var.access_package_assignment_policy_approval_required
+
+       approval_stage {
+      approval_timeout_in_days            = 14
+      alternative_approval_enabled        = true
+      approver_justification_required     = true
+      enable_alternative_approval_in_days = 7
+
+      primary_approver {
+        subject_type = "requestorManager"
+      }
+      alternative_approver {
+        backup       = true
+        subject_type = "groupMembers"
+        object_id    = data.azuread_group.example_approver_group.id
+      }
+    }
+
+  }
+  
+
+
+}
 }
