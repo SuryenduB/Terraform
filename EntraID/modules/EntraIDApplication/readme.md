@@ -1,3 +1,5 @@
+# Entrada ID Application
+
 ## Requirements
 
 No requirements.
@@ -50,19 +52,19 @@ The following input variables are required:
 
 ### <a name="input_display_name"></a> [display\_name](#input\_display\_name)
 
-Description: n/a
+Description: The display name of the application.
 
 Type: `string`
 
 ### <a name="input_identifier_uris"></a> [identifier\_uris](#input\_identifier\_uris)
 
-Description: n/a
+Description: The identifier URIs of the application.
 
 Type: `list(string)`
 
 ### <a name="input_object_owner_upn"></a> [object\_owner\_upn](#input\_object\_owner\_upn)
 
-Description: n/a
+Description: The UPN of the object owner.
 
 Type: `string`
 
@@ -72,7 +74,7 @@ The following input variables are optional (have default values):
 
 ### <a name="input_access_package_assignment_policy_approval_required"></a> [access\_package\_assignment\_policy\_approval\_required](#input\_access\_package\_assignment\_policy\_approval\_required)
 
-Description: n/a
+Description: Whether approval is required for access package assignment policy.
 
 Type: `bool`
 
@@ -80,7 +82,7 @@ Default: `false`
 
 ### <a name="input_access_package_assignment_policy_duration_in_days"></a> [access\_package\_assignment\_policy\_duration\_in\_days](#input\_access\_package\_assignment\_policy\_duration\_in\_days)
 
-Description: n/a
+Description: The duration in days for access package assignment policy.
 
 Type: `number`
 
@@ -88,15 +90,15 @@ Default: `14`
 
 ### <a name="input_access_token"></a> [access\_token](#input\_access\_token)
 
-Description: n/a
+Description: The access token configuration.
 
 Type:
 
 ```hcl
 list(object({
-    name = string,
-    essential = bool,
-    source = string,
+    name                  = string
+    essential             = bool
+    source                = string
     additional_properties = list(string)
   }))
 ```
@@ -105,7 +107,7 @@ Default: `null`
 
 ### <a name="input_app_role_assignment_required"></a> [app\_role\_assignment\_required](#input\_app\_role\_assignment\_required)
 
-Description: n/a
+Description: Whether app role assignment is required.
 
 Type: `bool`
 
@@ -113,16 +115,15 @@ Default: `true`
 
 ### <a name="input_app_roles"></a> [app\_roles](#input\_app\_roles)
 
-Description: n/a
+Description: The app roles of the application.
 
 Type:
 
 ```hcl
 list(object({
-    
-    description          = string
-    display_name         = string
-    value                = string
+    description  = string
+    display_name = string
+    value        = string
   }))
 ```
 
@@ -130,7 +131,7 @@ Default: `[]`
 
 ### <a name="input_approver_group_name"></a> [approver\_group\_name](#input\_approver\_group\_name)
 
-Description: n/a
+Description: The name of the approver group for access package assignment policy.
 
 Type: `string`
 
@@ -138,20 +139,20 @@ Default: `"Administrators"`
 
 ### <a name="input_claims_mapping_policy"></a> [claims\_mapping\_policy](#input\_claims\_mapping\_policy)
 
-Description: n/a
+Description: The claims mapping policy for the application.
 
 Type:
 
 ```hcl
 object({
-    claims_schema = list(object({
-      id = string,
-      jwt_claim_type = string,
-      Saml_Claim_Type = string,
-      source = string
+    claims_schema           = list(object({
+      id              = string
+      jwt_claim_type  = string
+      Saml_Claim_Type = string
+      source          = string
     }))
     include_basic_claim_set = string
-    version = number
+    version                 = number
   })
 ```
 
@@ -159,7 +160,7 @@ Default: `null`
 
 ### <a name="input_description"></a> [description](#input\_description)
 
-Description: n/a
+Description: The description of the application.
 
 Type: `string`
 
@@ -167,7 +168,7 @@ Default: `null`
 
 ### <a name="input_generate_catalog_access_package"></a> [generate\_catalog\_access\_package](#input\_generate\_catalog\_access\_package)
 
-Description: n/a
+Description: Whether to generate a catalog access package for the application.
 
 Type: `bool`
 
@@ -175,7 +176,7 @@ Default: `false`
 
 ### <a name="input_generate_certificate"></a> [generate\_certificate](#input\_generate\_certificate)
 
-Description: n/a
+Description: Whether to generate a certificate for the application.
 
 Type: `bool`
 
@@ -183,7 +184,7 @@ Default: `false`
 
 ### <a name="input_generate_secret"></a> [generate\_secret](#input\_generate\_secret)
 
-Description: n/a
+Description: Whether to generate a secret for the application.
 
 Type: `bool`
 
@@ -191,15 +192,15 @@ Default: `false`
 
 ### <a name="input_id_token"></a> [id\_token](#input\_id\_token)
 
-Description: n/a
+Description: The ID token configuration.
 
 Type:
 
 ```hcl
 list(object({
-    name = string,
-    essential = bool,
-    source = string,
+    name                  = string
+    essential             = bool
+    source                = string
     additional_properties = list(string)
   }))
 ```
@@ -208,7 +209,7 @@ Default: `null`
 
 ### <a name="input_path_to_logo_image"></a> [path\_to\_logo\_image](#input\_path\_to\_logo\_image)
 
-Description: n/a
+Description: The path to the logo image of the application.
 
 Type: `string`
 
@@ -216,7 +217,7 @@ Default: `null`
 
 ### <a name="input_preferred_single_sign_on_mode"></a> [preferred\_single\_sign\_on\_mode](#input\_preferred\_single\_sign\_on\_mode)
 
-Description: n/a
+Description: The preferred single sign-on mode.
 
 Type: `string`
 
@@ -224,7 +225,7 @@ Default: `"notSupported"`
 
 ### <a name="input_relay_state"></a> [relay\_state](#input\_relay\_state)
 
-Description: n/a
+Description: The relay state for single sign-on.
 
 Type: `string`
 
@@ -232,15 +233,15 @@ Default: `null`
 
 ### <a name="input_saml2_token"></a> [saml2\_token](#input\_saml2\_token)
 
-Description: n/a
+Description: The SAML2 token configuration.
 
 Type:
 
 ```hcl
 list(object({
-    name = string,
-    essential = bool,
-    source = string,
+    name                  = string
+    essential             = bool
+    source                = string
     additional_properties = list(string)
   }))
 ```
@@ -249,7 +250,7 @@ Default: `null`
 
 ### <a name="input_sign_in_audience"></a> [sign\_in\_audience](#input\_sign\_in\_audience)
 
-Description: n/a
+Description: The sign-in audience of the application.
 
 Type: `string`
 
@@ -261,12 +262,12 @@ The following outputs are exported:
 
 ### <a name="output_access_package"></a> [access\_package](#output\_access\_package)
 
-Description: n/a
+Description: The access package associated with the application.
 
 ### <a name="output_application_group"></a> [application\_group](#output\_application\_group)
 
-Description: n/a
+Description: The Azure AD group associated with the application.
 
 ### <a name="output_azuread_access_package_resource_package_association"></a> [azuread\_access\_package\_resource\_package\_association](#output\_azuread\_access\_package\_resource\_package\_association)
 
-Description: n/a
+Description: The association between the access package and the resource package in Azure AD.

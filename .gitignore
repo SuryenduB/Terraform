@@ -47,3 +47,5 @@ EntraID/terraform.tfstate.backup
 EntraID/terraform.tfstate
 .gitignore
 EntraID/.terraform/providers/registry.terraform.io/hashicorp/time/0.10.0/windows_386/terraform-provider-time_v0.10.0_x5.exe
+EntraID/terraform.tfstate.backup
+.gitignore
