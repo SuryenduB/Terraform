@@ -1,5 +1,6 @@
 # terraform-azuread-application
 
+Use this Repository to onboard new applications successfully to Azure AD and add credentials to the application, add additional application roles and assign them to groups, create access packages with the necessary assignment policy to assign the application roles to Tenant users.
 ## Requirements
 
 The following requirements are needed by this module:
