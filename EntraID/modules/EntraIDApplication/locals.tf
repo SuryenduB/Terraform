@@ -1,5 +1,6 @@
 locals {
-  app_roles = { for role in var.app_roles : role.display_name => role }
+  app_roles  = { for role in var.app_roles : role.display_name => role }
+  api_access = { for resource in var.api_access : resource.api_client_id => resource }
   optional_claims = {
     id_token     = var.id_token
     access_token = var.access_token

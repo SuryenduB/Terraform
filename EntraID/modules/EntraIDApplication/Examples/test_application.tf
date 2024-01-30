@@ -1,5 +1,19 @@
+data "azuread_application_published_app_ids" "well_known" {}
+
+data "azuread_service_principal" "msgraph" {
+  client_id = data.azuread_application_published_app_ids.well_known.result["MicrosoftGraph"]
+}
+
+data "azuread_service_principal" "TestAPI" {
+  client_id = "6e3df5f1-974f-4305-9361-948f43cc43dd"
+}
+
+data "azuread_domains" "example" {
+  only_initial = true
+}
+
 module "test_application" {
-  source = "../../modules/EntraIDApplication"
+  source = "./modules/EntraIDApplication"
 
   display_name       = "Test Application"
   identifier_uris    = ["https://test-application"]
@@ -38,20 +52,64 @@ module "test_application" {
   generate_catalog_access_package                    = true
   approver_group_name                                = "Assigned Group"
   access_package_assignment_policy_approval_required = true
-  object_owner_upn = "SuryenduB@03z3s.onmicrosoft.com"
+  object_owner_upn                                   = "SuryenduB@03z3s.onmicrosoft.com"
+  api_access = [{
+    api_client_id = data.azuread_application_published_app_ids.well_known.result["MicrosoftGraph"]
+    role_ids = [data.azuread_service_principal.msgraph.app_role_ids["Group.Read.All"],
+      data.azuread_service_principal.msgraph.app_role_ids["User.Read.All"],
+    ]
+    scope_ids = [
+      data.azuread_service_principal.msgraph.oauth2_permission_scope_ids["User.ReadWrite"],
+
+    ]
+
+
+    },
+    {
+      api_client_id = data.azuread_service_principal.TestAPI.client_id
+      role_ids = [
+        data.azuread_service_principal.TestAPI.app_role_ids["Files.ReadUser"],
+      ]
+
+      scope_ids = [
+        data.azuread_service_principal.TestAPI.oauth2_permission_scope_ids["Files.Read"],
+
+      ]
+    },
+  ]
+
+
 
 }
 
-output "azuread_application_group" {
-  value = module.test_application.application_group
-
-}
 
 output "access_package" {
   value = module.test_application.access_package
 }
 
-output "access_package_resource" {
-  value = module.test_application.azuread_access_package_resource_package_association
-
+output "access_package_url" {
+    value = [
+      for access_package in module.test_application.access_package : "https://myaccess.microsoft.com/@${data.azuread_domains.example.domains.0.domain_name}#/access-packages/${access_package.id}"
+    ]
+    
 }
+
+
+
+
+output "azuread_application_id" {
+  value = module.test_application.azuread_application.application_id
+  
+}
+
+output "azuread_application_client_id" {
+  value = module.test_application.azuread_application.client_id
+  
+}
+
+output "azuread_application_object_id" {
+  value = module.test_application.azuread_application.object_id
+  
+}
+
+

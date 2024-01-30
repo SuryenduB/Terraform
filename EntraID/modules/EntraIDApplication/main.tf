@@ -66,8 +66,8 @@ resource "azuread_application" "example" {
     redirect_uris = ["https://app.example.net/account"]
 
     implicit_grant {
-      access_token_issuance_enabled = true
-      id_token_issuance_enabled     = true
+      access_token_issuance_enabled = var.access_token_issuance_enabled
+      id_token_issuance_enabled     = var.id_token_issuance_enabled
     }
   }
 }
@@ -165,20 +165,18 @@ resource "azuread_application_optional_claims" "example" {
 }
 
 # Add API Access to the Application Registration
-resource "azuread_application_api_access" "example_msgraph" {
+resource "azuread_application_api_access" "example_resource_access" {
+  for_each = local.api_access != null ? local.api_access : {}
+
+
   application_id = azuread_application.example.id
-  api_client_id  = data.azuread_application_published_app_ids.well_known.result["MicrosoftGraph"]
+  api_client_id  = each.value.api_client_id
+  role_ids       = each.value.role_ids
+  scope_ids      = each.value.scope_ids
 
-  role_ids = [
-    data.azuread_service_principal.msgraph.app_role_ids["Group.Read.All"],
-    data.azuread_service_principal.msgraph.app_role_ids["User.Read.All"],
-  ]
-
-  scope_ids = [
-    data.azuread_service_principal.msgraph.oauth2_permission_scope_ids["User.ReadWrite"],
-    data.azuread_service_principal.msgraph.oauth2_permission_scope_ids["profile"],
-  ]
 }
+
+
 
 # Create a Service Principal for the Application Registration
 
@@ -210,15 +208,18 @@ resource "azuread_service_principal_certificate" "example" {
 # Create a Secret for the Service Principal
 
 resource "time_rotating" "example" {
-  rotation_days = 365
+  rotation_days = var.client_secret_rotation_days
 }
 
-resource "azuread_service_principal_password" "example" {
+
+
+resource "azuread_application_password" "example" {
   count                = var.generate_secret ? 1 : 0
-  service_principal_id = azuread_service_principal.example.id
+  application_id = azuread_application.example.id
   rotate_when_changed = {
     rotation = time_rotating.example.id
   }
+  
 }
 
 
@@ -240,12 +241,12 @@ resource "azuread_service_principal_claims_mapping_policy_assignment" "app" {
 
 # Create Catalog if var.catalog is present
 resource "azuread_access_package_catalog" "example" {
-  count        = var.generate_catalog_access_package != false ? 1 : 0
-  display_name = "Catalog for ${var.display_name}"
-  description  = "Catalog for ${var.display_name} to Assign and Add App Roles"
-  published    = true
+  count              = var.generate_catalog_access_package != false ? 1 : 0
+  display_name       = "Catalog for ${var.display_name}"
+  description        = "Catalog for ${var.display_name} to Assign and Add App Roles"
+  published          = true
   externally_visible = false
- 
+
 }
 
 #Assign all security groups we have created to our catalog if catalog is present
@@ -290,28 +291,28 @@ resource "azuread_access_package_assignment_policy" "example" {
   dynamic "approval_settings" {
     for_each = var.access_package_assignment_policy_approval_required != false ? [1] : []
     content {
-      approval_required = var.access_package_assignment_policy_approval_required
+      approval_required                = var.access_package_assignment_policy_approval_required
       requestor_justification_required = var.access_package_assignment_policy_approval_required
 
-       approval_stage {
-      approval_timeout_in_days            = 14
-      alternative_approval_enabled        = true
-      approver_justification_required     = true
-      enable_alternative_approval_in_days = 7
+      approval_stage {
+        approval_timeout_in_days            = 14
+        alternative_approval_enabled        = true
+        approver_justification_required     = true
+        enable_alternative_approval_in_days = 7
 
-      primary_approver {
-        subject_type = "requestorManager"
+        primary_approver {
+          subject_type = "requestorManager"
+        }
+        alternative_approver {
+          backup       = true
+          subject_type = "groupMembers"
+          object_id    = data.azuread_group.example_approver_group.id
+        }
       }
-      alternative_approver {
-        backup       = true
-        subject_type = "groupMembers"
-        object_id    = data.azuread_group.example_approver_group.id
-      }
+
     }
 
+
+
   }
-  
-
-
-}
 }

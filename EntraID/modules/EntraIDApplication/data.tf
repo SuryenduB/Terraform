@@ -6,7 +6,7 @@ data "azuread_service_principal" "msgraph" {
 
 data "azuread_group" "example_approver_group" {
   display_name = var.approver_group_name
-  
+
 }
 
 data "azuread_user" "owner" {
