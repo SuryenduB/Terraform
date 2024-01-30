@@ -22,6 +22,7 @@ output "azuread_application" {
 output "azuread_application_secret"{
   value = azuread_application_password.example
   sensitive = true
+  description = "The Azure AD application secret Object."
 }
 
 

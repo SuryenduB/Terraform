@@ -84,4 +84,4 @@ No modules.
 | <a name="output_application_group"></a> [application\_group](#output\_application\_group) | The Azure AD group associated with the application. |
 | <a name="output_azuread_access_package_resource_package_association"></a> [azuread\_access\_package\_resource\_package\_association](#output\_azuread\_access\_package\_resource\_package\_association) | The association between the access package and the resource package in Azure AD. |
 | <a name="output_azuread_application"></a> [azuread\_application](#output\_azuread\_application) | The Azure AD application. |
-| <a name="output_azuread_application_secret"></a> [azuread\_application\_secret](#output\_azuread\_application\_secret) | n/a |
+| <a name="output_azuread_application_secret"></a> [azuread\_application\_secret](#output\_azuread\_application\_secret) | The Azure AD application secret Object. |
